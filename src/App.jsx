@@ -60,9 +60,9 @@ const App = () => {
         <Route
           path="/"
           element={
-            <div className="w-full h-[100vh] flex flex-col md:flex-row md:h-screen">
+            <div className="w-full min-h-[100vh] flex flex-col md:flex-row md:h-screen">
               {/* Top Section - Left on desktop */}
-              <div className="bg-white px-4 pt-6 pb-4 h-1/2 md:h-full md:w-1/2">
+              <div className="min-h-[50vh] bg-white px-4 pt-6 pb-4 h-1/2 md:h-full md:w-1/2">
                 <h1 className="text-6xl font-bold">Hi There</h1>
                 <h2 className="font-bold">Productivity at the Peak</h2>
                 <div className="mt-10">
@@ -99,7 +99,7 @@ const App = () => {
               </div>
 
               {/* Bottom Section - Right on desktop */}
-              <div className="bg-black text-white px-4 pt-6 pb-8 md:w-1/2 md:rounded-l-3xl md:rounded-r-none rounded-t-3xl rounded-b-none md:h-full h-1/2">
+              <div className="min-h-[50vh] bg-black text-white px-4 pt-6 pb-8 md:w-1/2 md:rounded-l-3xl md:rounded-r-none rounded-t-3xl rounded-b-none md:h-full">
                 <h3 className="text-lg font-semibold mb-4">Today</h3>
                 {loading ? (
                   <div className="space-y-4 animate-pulse">
