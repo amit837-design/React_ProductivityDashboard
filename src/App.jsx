@@ -60,7 +60,7 @@ const App = () => {
         <Route
           path="/"
           element={
-            <div className="w-full text-black flex items-center justify-center min-h-screen">
+            <div className="w-full text-black bg-black flex items-center justify-center min-h-screen">
               <div className="w-full h-full overflow-hidden flex flex-col md:flex-row">
                 {/* Top Section - Left on desktop */}
                 <div className="topLeft bg-white px-4 pt-6 pb-4 md:w-1/2 h-1/2 md:min-h-screen">
