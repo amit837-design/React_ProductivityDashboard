@@ -1,23 +1,11 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { dataContext } from "../Wrapper";
 
 const Todo = () => {
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
-  const [tasks, setTasks] = useState([]);
-
-  // Load tasks from localStorage on mount
-  useEffect(() => {
-    const storedTasks = localStorage.getItem("tasks");
-    if (storedTasks) {
-      setTasks(JSON.parse(storedTasks));
-    }
-  }, []);
-
-  // Save tasks to localStorage whenever they change
-  useEffect(() => {
-    localStorage.setItem("tasks", JSON.stringify(tasks));
-  }, [tasks]);
+  const { tasks, setTasks } = useContext(dataContext);
 
   const submitHandler = (e) => {
     e.preventDefault();

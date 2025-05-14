@@ -1,45 +1,21 @@
-import React, { useContext, useState } from "react";
-import { dataContext } from "../Wrapper";
+import React, { useState } from "react";
 
 const TimeTracker = () => {
-  const { tasksTr, setTasksTr, completed, setCompleted } =
-    useContext(dataContext);
-  const [taskInput, setTaskInput] = useState("");
+  const [tasks, setTasks] = useState({});
+  const [completed, setCompleted] = useState({});
   const [hourInput, setHourInput] = useState("9");
+  const [taskInput, setTaskInput] = useState("");
 
   const addTask = () => {
     const hour = parseInt(hourInput);
     if (!taskInput.trim()) return;
-    setTasksTr({ ...tasksTr, [hour]: taskInput });
+    setTasks({ ...tasks, [hour]: taskInput });
     setCompleted({ ...completed, [hour]: false });
     setTaskInput("");
   };
 
   const toggleCompleted = (hour) => {
-    const isNowCompleted = !completed[hour];
-
-    if (isNowCompleted) {
-      // Mark completed immediately to update UI
-      setCompleted((prev) => ({ ...prev, [hour]: true }));
-
-      // Then remove after 1 second delay
-      setTimeout(() => {
-        setTasksTr((prevTasksTr) => {
-          const newTasksTr = { ...prevTasksTr };
-          delete newTasksTr[hour];
-          return newTasksTr;
-        });
-
-        setCompleted((prev) => {
-          const newCompleted = { ...prev };
-          delete newCompleted[hour];
-          return newCompleted;
-        });
-      }, 1000);
-    } else {
-      // Uncheck — just mark incomplete immediately
-      setCompleted((prev) => ({ ...prev, [hour]: false }));
-    }
+    setCompleted((prev) => ({ ...prev, [hour]: !prev[hour] }));
   };
 
   const isSleepHour = (hour) => hour < 6 || hour >= 22;
@@ -92,40 +68,6 @@ const TimeTracker = () => {
         {/* Input Form */}
         <div className="rounded-2xl shadow-md border border-zinc-800 p-6 bg-black/40 backdrop-blur-sm">
           <h2 className="text-xl font-bold mb-4">Assign a Task</h2>
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              addTask();
-            }}
-            className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center w-full"
-          >
-            <select
-              className="w-full sm:w-24 px-3 py-2 rounded-lg border border-zinc-700 bg-zinc-800 text-sm focus:ring-2 focus:ring-zinc-600"
-              value={hourInput}
-              onChange={(e) => setHourInput(e.target.value)}
-            >
-              {activeHours.map((i) => (
-                <option key={i} value={i}>
-                  {`${i.toString().padStart(2, "0")}:00`}
-                </option>
-              ))}
-            </select>
-
-            <input
-              className="w-full flex-1 px-3 py-2 rounded-lg border border-zinc-700 bg-zinc-800 text-sm focus:ring-2 focus:ring-zinc-600"
-              placeholder="Enter task description..."
-              value={taskInput}
-              onChange={(e) => setTaskInput(e.target.value)}
-            />
-
-            <button
-              type="submit"
-              className="w-full sm:w-auto cursor-pointer group relative px-6 py-2 text-base font-semibold text-white border-2 border-white rounded-full bg-transparent overflow-hidden transition-all duration-300 ease-[cubic-bezier(0.23,1,0.32,1)] hover:text-black hover:scale-105 active:scale-100 shadow-sm hover:shadow-lg"
-            >
-              <span className="absolute inset-0 m-auto w-12 h-12 rounded-full scale-0 bg-white transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:scale-150 -z-10"></span>
-              Add
-            </button>
-          </form>
         </div>
 
         {/* Two-Column Timeline */}
@@ -139,7 +81,7 @@ const TimeTracker = () => {
                 <TimeBlock
                   key={hour}
                   hour={hour}
-                  task={tasksTr[hour]}
+                  task={tasks[hour]}
                   isCompleted={completed[hour]}
                   toggleCompleted={toggleCompleted}
                 />
@@ -150,7 +92,7 @@ const TimeTracker = () => {
                 <TimeBlock
                   key={hour}
                   hour={hour}
-                  task={tasksTr[hour]}
+                  task={tasks[hour]}
                   isCompleted={completed[hour]}
                   toggleCompleted={toggleCompleted}
                 />
