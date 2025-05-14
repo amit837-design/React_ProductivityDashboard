@@ -100,7 +100,7 @@ const App = () => {
                 </div>
 
                 {/* Bottom Section - Right on desktop */}
-                <div className="bg-black text-white px-4 pt-6 pb-8 md:w-1/2 md:rounded-l-3xl md:rounded-r-none rounded-t-3xl rounded-b-none md:min-h-screen min-h-1/2 overflow-hidden">
+                <div className="bg-black h-56 text-white px-4 pt-6 pb-8 md:w-1/2 md:rounded-l-3xl md:rounded-r-none rounded-t-3xl rounded-b-none md:min-h-screen min-h-1/2 overflow-hidden">
                   <h3 className="text-lg font-semibold mb-4">Today</h3>
                   {loading ? (
                     <div className="space-y-4 animate-pulse">
